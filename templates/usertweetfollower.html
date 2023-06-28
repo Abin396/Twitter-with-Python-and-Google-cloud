@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+{% block table %}
+
+<div class= "signup-header">
+    <h2>User Tweet and Follower  </h2>
+</div>
+
+  <div class ="box1">
+    
+    <div class ="box2">
+        <p style="margin: 1em;">Username: {{ current_user['username'] }}</p>
+        <p style="margin: 1em;">Name: {{current_user['name'] }}</p>
+        <p style="margin: 1em;">Email: {{ current_user['email'] }}</p>
+        <p style="margin: 1em;">Bio: {{ current_user['bio'] }}</p>
+
+        {% if current_user['email'] != user_data['email'] %}
+        {% if user_data['email'] not in current_user['follower_list'] %}
+        <form action="/follow/{{ current_user['email'] }}" method="post">
+            <input type="submit" name="submit" value="Follow">
+        </form>
+        {% elif user_data['email'] in current_user['follower_list'] %}
+        <form action="/unfollow/{{ current_user['email'] }}" method="post">
+            <input type="submit" name="submit" value="Unfollow">
+        </form>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<div class= "signup-header">
+    <h2>Tweets list </h2>
+  </div>
+  <div class ="box1">
+    {% for tweet in tweets %}
+    <div class ="box2">
+        <p style="text-align: left; padding: 1em;">{{ tweet['username'] }}:</p>
+        <p style="text-align: left; padding: 1em;">" {{ tweet['tweet'] }} "</p>
+        <p style="text-align: right; font-size: small; padding: 1em;">{{ tweet['time'] }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  {% endblock %}
+
+    

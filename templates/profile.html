@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+{% block table %}
+
+{% if user_data %}
+<div class= "signup-header">
+    <h2>User Profile </h2>
+  </div>
+<div class ="box1">
+    
+    <div class ="box2">
+        <p style="margin: 1em;">Username: {{ user_info['username'] }}</p>
+        <p style="margin: 1em;">Name: {{ user_info['name'] }}</p>
+        <p style="margin: 1em;">Email: {{ user_info['email'] }}</p>
+        <p style="margin: 1em;">Bio: {{ user_info['bio'] }}</p>
+    </div>
+</div>
+{% elif error_message %}
+<div class ="box1">
+    
+    <div class ="box2">
+        <p>Error</p>
+    </div>
+</div>
+{% endif %}
+
+{% if user_data %}
+<div class= "signup-header">
+    <h2>Tweets list </h2>
+  </div>
+<div class ="box1">
+    <div class ="box2">
+        {% for tweet in tweets %}
+        <p style="text-align: left; padding: 1em;">{{ tweet['username'] }}:</p>
+        <p style="text-align: left; padding: 1em;">" {{ tweet['tweet'] }} "</p>
+        <p style="text-align: right; font-size: small; padding: 1em;">{{ tweet['time'] }}</p>
+        {% if tweet['username'] == user_info['username'] %}
+        <form action="/edit/{{ tweet['id'] }}" method="get">
+            <input type="submit" name="submit" value="Edit" >
+        </form>
+        <form action="/delete/{{ tweet['id'] }}" method="post">
+            <input type="submit" name="submit" value="Delete">
+        </form>
+       {% endif %}
+    <div>
+{% endfor %}   
+</div>
+{% elif error_message %}
+<div class ="box1">
+    
+    <div class ="box2">
+        <p>Error</p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

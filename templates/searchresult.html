@@ -1,0 +1,53 @@
+{% extends "index.html" %}
+{% block table %}
+
+<div class= "signup-header">
+    <h2>Searches for "{{ search }}" </h2>
+</div>
+{% if users %}  
+<table class="table">
+    <thead class="thead-inverse">
+        <tr>
+        <th>Username</th>
+        <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+    <tr>
+        <td><a href="/user/{{ user['email'] }}" style="text-decoration: underline; color: yellow; font-weight: bold;">{{ user['username'] }}</a></td>
+        <td><p style="text-decoration: underline; color: white;"> {{ user['email'] }}</p></td>
+    </tbody>  
+{% endfor %}
+ 
+{% elif not users %}
+<h2>User</h2>
+<div class ="box1">
+    
+    <div class ="box2">
+        <p>User not Found</p>
+    </div>
+</div>
+{% endif %}
+{% if tweets %}
+<h3>Tweets</h3> 
+<div class ="box1">
+    <div class ="box2">  
+        {% for tweet in tweets %}
+        <p style="text-align: left; padding: 1em;">{{ tweet['username'] }}:</p>
+        <p style="text-align: left; padding: 1em;">" {{ tweet['tweet'] }} "</p>
+        <p style="text-align: right; font-size: small; padding: 1em;">{{ tweet['time'] }}</p>
+        {% endfor %}
+    </div>
+</div>
+    
+{% elif not tweets %}
+<div class ="box1">
+
+    <div class ="box2">
+        <p>Tweets for this serached word not found in the list</p>
+    </div>
+</div>
+{% endif %}
+<h3>User</h3>
+{% endblock %}

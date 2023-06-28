@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+{% block table %}
+
+<form  action="/edit/{{ tweet['id'] }}" method="post" enctype="multipart/form-data">
+    <div class= "signup-header">
+      <h2>Edit Tweet</h2>
+    </div>
+    <section class="twelve">
+      <div class="signup-container">
+          <div class="signup-row">
+              <div class="signup-col2">
+                <textarea name="tweet" id="tweet" cols="100" rows="4" placeholder="max 280 characters..." maxlength="280" style="max-width: 90%;">{{ tweet['tweet'] }}</textarea>
+              </div>
+              <div class="signup-col2">
+                <input type="file" name="file_name" />
+              </div>
+          </div>
+          <div class="button">
+              <input class="signup-input" type="submit" value="Post" id="btn1">
+          </div>  
+      </div>  
+   </section>
+  </form>
+  {% endblock %}
